@@ -7,6 +7,8 @@ class PropertiesController < ApplicationController
   def new
     #インスタンスをインスタンス変数に代入。ビューにデータを渡す
     @property = Property.new
+    #buildメソッドを使用し、propertyモデルに属するnearest_stationモデルのインスタンスを新たに生成する。
+    2.times{ @property.nearest_stations.build }
   end
 
   def create
@@ -25,6 +27,7 @@ class PropertiesController < ApplicationController
   end
 
   def edit
+    @property.nearest_stations.build
   end
 
   def update
@@ -43,7 +46,14 @@ class PropertiesController < ApplicationController
   private
   #paramsメソッドにより、parametersの値を取得。
   def property_params
-    (params.require(:property).permit(:property_name, :rent, :street_address, :age, :note))
+    params.require(:property).permit(
+      :property_name,
+      :rent,
+      :street_address,
+      :age,
+      :note,
+      nearest_stations_attributes: {}
+    )
   end
 
   def set_property
