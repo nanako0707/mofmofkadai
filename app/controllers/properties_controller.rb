@@ -1,5 +1,6 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: [:show, :edit, :update, :destroy]
+
   def index
     @properties = Property.all
   end
@@ -8,7 +9,7 @@ class PropertiesController < ApplicationController
     #インスタンスをインスタンス変数に代入。ビューにデータを渡す
     @property = Property.new
     #buildメソッドを使用し、propertyモデルに属するnearest_stationモデルのインスタンスを新たに生成する。
-    2.times{ @property.nearest_stations.build }
+    2.times { @property.nearest_stations.build }
   end
 
   def create
@@ -24,6 +25,7 @@ class PropertiesController < ApplicationController
   end
 
   def show
+    @nearest_stations = @property.nearest_stations
   end
 
   def edit
@@ -52,7 +54,15 @@ class PropertiesController < ApplicationController
       :street_address,
       :age,
       :note,
-      nearest_stations_attributes: {}
+      #attributesメソッドを使用し、インスタンスの属性（オブジェクトが持っている値）一覧を取得
+      nearest_stations_attributes: [
+        :route,
+        :station,
+        :minutes_walk,
+        :property_id,
+        :id,
+        :_destroy,
+      ],
     )
   end
 

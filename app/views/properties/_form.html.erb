@@ -32,13 +32,15 @@
   <div class="border"></div>
   <%= form.fields_for :nearest_stations do |nearest_station| %>
   <h2>最寄り駅</h2>
+  <!-- hidden_fieldを使用し、nearest_stationモデルにproperty_idを保存し、properties#showページに描写 -->
+  <%# <%= nearest_station.hidden_field :property_id, value: property.id %>  
   <div class="route">
     <%= nearest_station.label :路線名 %><br>
     <%= nearest_station.text_field :route %>
   </div>
   <div class="station">
     <%= nearest_station.label :駅名 %><br>
-    <%= nearest_station.text_field :station %>円
+    <%= nearest_station.text_field :station %>
   </div>
   <div class="minutes_walk">
     <%= nearest_station.label :徒歩分数 %><br>
