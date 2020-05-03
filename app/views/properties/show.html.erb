@@ -4,12 +4,12 @@
   <p>築年数: <%= @property.age %>年</p>
   <p>備考: <%= @property.note %></p>
   <div class="border"></div>
-  <h2>最寄り駅</h2>
   <% if @property.nearest_stations.any? %>
-    <% @nearest_stations.each do |nearest_station| %>
-    <p>路線名 <%= nearest_station.route %>線</p>
-    <p>駅名 <%= nearest_station.station %>駅</p>
-    <p>徒歩分数 <%= nearest_station.minutes_walk %>分</p>
+    <% @nearest_stations.each_with_index do |nearest_station, i| %>
+      <h2>最寄り駅 <%= i + 1 %></h2>
+      <p>路線名 <%= nearest_station.route %>線</p>
+      <p>駅名 <%= nearest_station.station %>駅</p>
+      <p>徒歩分数 <%= nearest_station.minutes_walk %>分</p>
     <% end %>
   <% end %>
 
